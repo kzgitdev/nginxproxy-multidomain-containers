@@ -16,12 +16,15 @@ services:
       # - $CERT_PATH/live/$DOMAIN/fullchain.pem:/etc/letsencrypt/$DOMAIN.crt
       # - $CERT_PATH/live/$DOMAIN/privkey.pem:/etc/letsencrypt/$DOMAIN.key
     environment:
+      # step1 first value is only VIRTUAL_HOST, VIRTUAL_PORT=80 .
+      # step2 after creating certifications, add to VIRTUAL_PORT=443, HTTPS_METHOD, CERT_NAME. 
+      # step2 
       - VIRTUAL_HOST=$DOMAIN
       - VIRTUAL_PORT=80
-      - VIRTUAL_PORT=443
-      - VIRTUAL_PROTO=https
-      - HTTPS_METHOD=noredirect
-      - CERT_NAME=$DOMAIN
+      # - VIRTUAL_PORT=443
+      # - VIRTUAL_PROTO=https
+      # - HTTPS_METHOD=noredirect
+      # - CERT_NAME=$DOMAIN
       - NGINX_HOST=$DOMAIN
       - NGINX_PORT=443
     expose:
