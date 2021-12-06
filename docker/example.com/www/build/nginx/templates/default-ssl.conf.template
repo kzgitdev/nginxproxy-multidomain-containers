@@ -1,6 +1,4 @@
 server {
-    # docker-compose-ssl.yml + default-ssl.conf.template => default-ssl.cof
-    # 2021/12/05 18:15
     server_name  ${NGINX_HOST};
     listen       80;
     listen  [::]:80;
@@ -58,7 +56,7 @@ server {
     #
     location ~ \.php$ {
        root           /var/www/html;
-       fastcgi_pass   cs-www-app:9000;
+       fastcgi_pass   ex-www-app:9000;
        fastcgi_index  index.php;
        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
        fastcgi_param  PATH_INFO $fastcgi_script_name;
