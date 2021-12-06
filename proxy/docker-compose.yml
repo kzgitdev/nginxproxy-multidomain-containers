@@ -9,6 +9,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - ./build/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./log/nginx:/var/log/nginx
+      # *.crt and *.key will be enabled once registration is complete. 
+      # - /home/$USERNAME/docker/example.com/www/letsencrypt/live/example.com/fullchain.pem:/etc/nginx/certs/example.com.crt
+      # - /home/$USERNAME/docker/example.com/www/letsencrypt/live/example.com/privkey.pem:/etc/nginx/certs/example.com.key
+      # - /home/$USERNAME/docker/example.com/subdomain/letsencrypt/live/example.com/fullchain.pem:/etc/nginx/certs/subdomain.example.com.crt
+      # - /home/$USERNAME/docker/example.com/subdomain/letsencrypt/live/example.com/privkey.pem:/etc/nginx/certs/subdomain.example.com.key
     ports:
       - "80:80"
       - "443:443"
