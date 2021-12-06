@@ -48,6 +48,25 @@ services:
       - default
       - proxy_default
 
+  db:
+    container_name: ex-www-db
+    image: mariadb:$MARIADB_TAG
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./db:/var/lib/mysql
+      - ./log/mariadb:/var/log/mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD
+      - MARIADB_USER=$MARIADB_USER
+      - MARIADB_PASSWORD=$MARIADB_PASSWORD
+      - MARIADB_DATABASE=$MARIADB_DATABASE
+      - TZ=$TZ
+    expose:
+      - '3306'
+    networks:
+      - default
+      - proxy_default
+
   cert:
     container_name: ex-www-cert
     image: certbot/certbot:$CERTBOT_TAG
