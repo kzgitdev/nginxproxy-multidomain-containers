@@ -23,13 +23,13 @@
 ## 構築の手順
 1-1 nginx-proxy(jwilder/nginx-proxy)を起動します。
 2-1 ドメイン１(example.com）のWEBサーバーを起動します。\
-  ポート80のみ開放
+- ポート80のみ開放
 2-2 certbotでSSL証明書を取得する＆所有者を一般ユーザーにする
 3-1 nginx-proxyにドメイン１のSSL証明書をマウントする\
-  マウントポイントは/etc/nginx/certs/example.com.crt, /etc/nginx/certs/example.com.key
-3-2 ドメイン１のWEBサーバーにポート443の設定をする 
- SSL証明書をの設定を変更し、ポート80, 443を開放する
+- マウントポイントは/etc/nginx/certs/example.com.crt, /etc/nginx/certs/example.com.key
+3-2 ドメイン１のWEBサーバーにポート443の設定をする
+- SSL証明書をの設定を変更し、ポート80, 443を開放する
 3-3 ドメイン１のcertbot renewのテスト＆crontabeに登録
 4-1 ドメイン２(sub.example.com)のWEBサーバーを起動します。 
- ポート80のみ開放
+- ポート80のみ開放
 2-1 - 3-2 までを繰り返す
