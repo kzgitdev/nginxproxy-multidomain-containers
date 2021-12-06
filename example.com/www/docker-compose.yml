@@ -32,7 +32,7 @@ services:
       - proxy_default
 
   app:
-    container_name: cs-www-app
+    container_name: ex-www-app
     image: php:$PHP_TAG
     volumes:
       - /etc/localtime:/etc/localtime:ro
