@@ -3,9 +3,14 @@
 ###
 # certbot renew by crontab 
 #
-# params
+# PARAMS
 #   USERNAME : set linux username that build docker containers
 #   WORK_DIRS: set the directory contains docker-compose.yml
+#
+# USAGE 
+#  Here is an example to run weekly thuseday 
+#  $ crontab -e
+#  32 4 * * 1 /home/USERNAME/shell/cert_renew.sh
 
 USERNAME=username
 WORK_DIRS=(
