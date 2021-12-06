@@ -12,6 +12,7 @@
 - nginx version: nginx/1.21.4
 - PHP 8.0.13 (cli) (built: Nov 19 2021 21:41:50) ( NTS )
 - jwilder/nginx-proxy:latest
+- mariadb:10.7.1-focal
 - certbot 1.21.0
 
 ## 前提条件
