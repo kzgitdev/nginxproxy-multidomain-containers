@@ -13,8 +13,8 @@ services:
       # step2 default-ssl.conf.template + $DOMAIN.crt, $DOMAIN.key
       - ./build/nginx/templates/default-80.conf.template:/etc/nginx/templates/default.conf.template
       # - ./build/nginx/templates/default-ssl.conf.template:/etc/nginx/templates/default.conf.template
-      - $CERT_PATH/live/$DOMAIN/fullchain.pem:/etc/letsencrypt/$DOMAIN.crt
-      - $CERT_PATH/live/$DOMAIN/privkey.pem:/etc/letsencrypt/$DOMAIN.key
+      # - $CERT_PATH/live/$DOMAIN/fullchain.pem:/etc/letsencrypt/$DOMAIN.crt
+      # - $CERT_PATH/live/$DOMAIN/privkey.pem:/etc/letsencrypt/$DOMAIN.key
     environment:
       - VIRTUAL_HOST=$DOMAIN
       - VIRTUAL_PORT=80
