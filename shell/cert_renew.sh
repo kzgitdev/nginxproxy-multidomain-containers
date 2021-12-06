@@ -22,6 +22,9 @@ for WORK_DIR in ${WORK_DIRS[@]}; do
   {
     echo "---- start cert-renew ${HOSTNAME}.${DOMAIN}$(date '+%Y/%m/%d %H:%M:%S')"
 
+    # NOTICE
+    # --dry-run option is the test mode
+    # Remove the option "--dry-run" in production environment  
     CERT_RENEW=$(docker-compose run --rm cert renew --dry-run -w /var/www/html --post-hook "echo qwerty")
 
     if echo "${CERT_RENEW}" | grep -q "qwerty"; then
