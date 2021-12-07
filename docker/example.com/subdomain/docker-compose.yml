@@ -1,8 +1,11 @@
 version: '3.9'
-
+#
+# volume, environment and expose directive contain step1 and step2.
+# step1: Creat the certifications with lestencrypt.
+# step2: Enable to access prot 80 and 443 at the nginx web server.
 services:
   web:
-    container_name: ex-subdomain-web
+    container_name: ex-www-web
     image: nginx:$NGINX_TAG
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
@@ -16,28 +19,29 @@ services:
       # - $CERT_PATH/live/$DOMAIN/fullchain.pem:/etc/letsencrypt/$DOMAIN.crt
       # - $CERT_PATH/live/$DOMAIN/privkey.pem:/etc/letsencrypt/$DOMAIN.key
     environment:
-      # step1 first value is only VIRTUAL_HOST, VIRTUAL_PORT=80 .
-      # step2 after creating certifications, add to VIRTUAL_PORT=443, HTTPS_METHOD, CERT_NAME. 
+      # step1 At the first, Valiables are only VIRTUAL_HOST, VIRTUAL_PORT=80, HTTPS_METHOD.
+      # step2 After creating certifications, add the VIRTUAL_PORT=443, VIRTUAL_PROTO=https, CERT_NAME=$DOMAIN. 
       - VIRTUAL_HOST=$DOMAIN
       - VIRTUAL_PORT=80
       # - VIRTUAL_PORT=443
       # - VIRTUAL_PROTO=https
-      # - HTTPS_METHOD=noredirect
+      - HTTPS_METHOD=noredirect
       # - CERT_NAME=$DOMAIN
       - NGINX_HOST=$DOMAIN
       - NGINX_PORT=443
     expose:
+      # step1 At the first, Only port 80
+      # step2 After creating certifications, add the port 443.
       - '80'
-      - '443'
+      # - '443'
     networks:
       - default
       - proxy_default
-  
+
   app:
-    container_name: ex-subdomain-app
+    container_name: ex-www-app
     image: php:$PHP_TAG
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
       - ./src:/var/www/html
       - ./build/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
@@ -49,13 +53,34 @@ services:
       - default
       - proxy_default
 
+  db:
+    container_name: ex-www-db
+    image: mariadb:$MARIADB_TAG
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./db:/var/lib/mysql
+      - ./log/mariadb:/var/log/mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=$MARIADB_ROOT_PASSWORD
+      - MARIADB_USER=$MARIADB_USER
+      - MARIADB_PASSWORD=$MARIADB_PASSWORD
+      - MARIADB_DATABASE=$MARIADB_DATABASE
+      - TZ=$TZ
+    expose:
+      - '3306'
+    networks:
+      - default
+      - proxy_default
+
   cert:
-    container_name: sl-webapp-cert
+    container_name: ex-www-cert
     image: certbot/certbot:$CERTBOT_TAG
     volumes:
       - ./letsencrypt:/etc/letsencrypt
       - ./src:/var/www/html
+      - ./log/letsencrypt:/var/log/letsencrypt
     command: ["--version"]
+    
     
 networks:
   default:
