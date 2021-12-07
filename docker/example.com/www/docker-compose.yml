@@ -30,8 +30,6 @@ services:
       - NGINX_HOST=$DOMAIN
       - NGINX_PORT=443
     expose:
-      # step1 At the first, Only port 80
-      # step2 After creating certifications, add the port 443.
       - '80'
       - '443'
     networks:
