@@ -31,9 +31,6 @@ services:
       - NGINX_PORT=443
       - NGINX_APP_HOST=${COMPOSE_PROJECT_NAME}-app
     expose:
-      # I dont know why open both 80 and 443 in step1.
-      #   step1 At the first, Only port 80
-      #   step2 After creating certifications, add the port 443.
       - '80'
       - '443'
     networks:
