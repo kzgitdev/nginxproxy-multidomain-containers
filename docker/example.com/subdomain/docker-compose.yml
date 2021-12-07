@@ -5,7 +5,7 @@ version: '3.9'
 # step2: Enable to access prot 80 and 443 at the nginx web server.
 services:
   web:
-    container_name: ex-www-web
+    container_name: ${COMPOSE_PROJECT_NAME}-web
     image: nginx:$NGINX_TAG
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
@@ -29,6 +29,7 @@ services:
       # - CERT_NAME=$DOMAIN
       - NGINX_HOST=$DOMAIN
       - NGINX_PORT=443
+      - NGINX_APP_HOST=${COMPOSE_PROJECT_NAME}-app
     expose:
       # I dont know why open both 80 and 443 in step1.
       #   step1 At the first, Only port 80
@@ -40,7 +41,7 @@ services:
       - proxy_default
 
   app:
-    container_name: ex-www-app
+    container_name: ${COMPOSE_PROJECT_NAME}-app
     image: php:$PHP_TAG
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -55,7 +56,7 @@ services:
       - proxy_default
 
   db:
-    container_name: ex-www-db
+    container_name: ${COMPOSE_PROJECT_NAME}-db
     image: mariadb:$MARIADB_TAG
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -74,7 +75,7 @@ services:
       - proxy_default
 
   cert:
-    container_name: ex-www-cert
+    container_name: ${COMPOSE_PROJECT_NAME}-cert
     image: certbot/certbot:$CERTBOT_TAG
     volumes:
       - ./letsencrypt:/etc/letsencrypt
