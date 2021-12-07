@@ -33,7 +33,7 @@ services:
       # step1 At the first, Only port 80
       # step2 After creating certifications, add the port 443.
       - '80'
-      # - '443'
+      - '443'
     networks:
       - default
       - proxy_default
