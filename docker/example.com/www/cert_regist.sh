@@ -6,6 +6,8 @@
 # USAGE:
 #   step1: docker-compose up -d web
 #   step2: exec cert_regist.sh to regist and get certifications
+# Notice:
+#    remove the option --dry-run -v with production mode
 EMAIL=user@example.com
 DOMAIN=subdomain.example.com
 
